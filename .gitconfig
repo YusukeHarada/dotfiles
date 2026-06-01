@@ -1,0 +1,40 @@
+[user]
+	name = YusukeHarada
+	email = peugeot106.36@gmail.com
+
+[core]
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = current
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	lg = log --oneline --graph --decorate --all
+	undo = reset HEAD~1 --mixed
+	unstage = reset HEAD --
+
+[commit]
+	template = ~/.stCommitMsg
+
+[diff]
+	tool = sourcetree
+
+[difftool "sourcetree"]
+	cmd = opendiff "$LOCAL" "$REMOTE"
+	path =
+
+[merge]
+	tool = sourcetree
+
+[mergetool "sourcetree"]
+	cmd = /Users/yharada/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
+	trustExitCode = true

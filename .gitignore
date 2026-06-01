@@ -1,0 +1,4 @@
+.DS_Store
+
+# gh CLI — contains OAuth tokens
+.config/gh/hosts.yml
