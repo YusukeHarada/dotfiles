@@ -15,6 +15,7 @@
 | `.vimrc` | Vim の設定 |
 | `.config/gh/config.yml` | GitHub CLI の設定 |
 | `.config/karabiner/karabiner.json` | Karabiner-Elements のキーボード設定 |
+| `Brewfile` | Homebrew でインストールするパッケージ一覧 |
 
 ---
 
@@ -43,6 +44,9 @@ bash ~/dotfiles/install.sh
 
 # 3. 設定を即時反映
 source ~/.zshrc
+
+# 4. Homebrew パッケージを一括インストール
+brew bundle --file=~/dotfiles/Brewfile
 ```
 
 > **注意:** `install.sh` は既存ファイルを上書きせず、`~/.dotfiles_backup/` に退避してからリンクを張ります。
@@ -68,6 +72,21 @@ git push
 ```
 
 > `~/.zshrc` はシンボリックリンクなので、`~/.zshrc` を編集しても同じです。
+
+---
+
+### Brewfile を更新したいとき
+
+パッケージを追加・削除したら Brewfile を再生成して保存します。
+
+```bash
+brew bundle dump --file=~/dotfiles/Brewfile --force
+
+cd ~/dotfiles
+git add Brewfile
+git commit -m "Brewfile: ○○を追加"
+git push
+```
 
 ---
 
@@ -111,6 +130,7 @@ git push
 ├── .vimrc
 ├── .zprofile
 ├── .zshrc
+├── Brewfile                 # Homebrew パッケージ一覧
 ├── install.sh               # セットアップスクリプト
 └── README.md                # このファイル
 ```
