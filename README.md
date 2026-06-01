@@ -16,6 +16,8 @@
 | `.config/gh/config.yml` | GitHub CLI の設定 |
 | `.config/karabiner/karabiner.json` | Karabiner-Elements のキーボード設定 |
 | `Brewfile` | Homebrew でインストールするパッケージ一覧 |
+| `vscode/settings.json` | VS Code のユーザー設定 |
+| `.claude/settings.json` | Claude Code の設定（テーマなど） |
 
 ---
 
@@ -130,6 +132,8 @@ git push
 ├── .vimrc
 ├── .zprofile
 ├── .zshrc
+├── vscode/
+│   └── settings.json        # VS Code ユーザー設定
 ├── Brewfile                 # Homebrew パッケージ一覧
 ├── install.sh               # セットアップスクリプト
 └── README.md                # このファイル

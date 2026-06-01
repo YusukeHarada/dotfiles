@@ -34,5 +34,21 @@ mkdir -p "$HOME/.config"
 link .config/gh
 link .config/karabiner
 
+echo "==> Linking VS Code settings"
+VSCODE_DIR="$HOME/Library/Application Support/Code/User"
+mkdir -p "$VSCODE_DIR"
+VSCODE_SRC="$DOTFILES_DIR/vscode/settings.json"
+VSCODE_DST="$VSCODE_DIR/settings.json"
+if [ -e "$VSCODE_DST" ] && [ ! -L "$VSCODE_DST" ]; then
+  mv "$VSCODE_DST" "$BACKUP_DIR/vscode_settings.json"
+  echo "  backed up: $VSCODE_DST"
+fi
+ln -sfn "$VSCODE_SRC" "$VSCODE_DST"
+echo "  linked:    $VSCODE_DST -> $VSCODE_SRC"
+
+echo "==> Linking Claude Code settings"
+mkdir -p "$HOME/.claude"
+link .claude/settings.json
+
 echo ""
 echo "Done. Reload your shell: source ~/.zshrc"
