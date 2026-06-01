@@ -9,14 +9,19 @@ export PATH="/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:$PATH"
 # History
 HISTSIZE=50000
 SAVEHIST=50000
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
 
-# Completion
-autoload -Uz compinit && compinit
+# Completion (キャッシュを使い24時間ごとにのみ再生成)
+autoload -Uz compinit
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 

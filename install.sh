@@ -40,6 +40,7 @@ mkdir -p "$VSCODE_DIR"
 VSCODE_SRC="$DOTFILES_DIR/vscode/settings.json"
 VSCODE_DST="$VSCODE_DIR/settings.json"
 if [ -e "$VSCODE_DST" ] && [ ! -L "$VSCODE_DST" ]; then
+  mkdir -p "$BACKUP_DIR"
   mv "$VSCODE_DST" "$BACKUP_DIR/vscode_settings.json"
   echo "  backed up: $VSCODE_DST"
 fi

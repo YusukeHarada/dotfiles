@@ -9,5 +9,7 @@
     "evenBetterToml.schema.associations": {
         "config\\.toml$": "https://schemastore.org"
     },
-    "claudeCode.preferredLocation": "panel"
+    "claudeCode.preferredLocation": "panel",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true
 }

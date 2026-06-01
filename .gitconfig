@@ -36,5 +36,5 @@
 	tool = sourcetree
 
 [mergetool "sourcetree"]
-	cmd = /Users/yharada/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
+	cmd = $HOME/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
 	trustExitCode = true

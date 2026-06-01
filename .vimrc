@@ -30,8 +30,6 @@ set hlsearch
 "----------------------------------------
 " エラーメッセージの表示時にビープを鳴らさない
 set noerrorbells
-" Windowsでパスの区切り文字をスラッシュで扱う
-set shellslash
 " 対応する括弧やブレースを表示
 set showmatch matchtime=1
 " インデント方法の変更
@@ -57,7 +55,7 @@ set expandtab
 " インデント幅
 set shiftwidth=2
 " タブキー押下時に挿入される文字幅を指定
-"set softtabstop=2
+set softtabstop=2
 " ファイル内にあるタブ文字の表示幅
 set tabstop=2
 " ツールバーを非表示にする
@@ -67,9 +65,7 @@ set guioptions+=a
 " メニューバーを非表示にする
 set guioptions-=m
 " 右スクロールバーを非表示
-set guioptions+=R
-" 対応する括弧を強調表示
-set showmatch
+set guioptions-=R
 " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 set smartindent
 " スワップファイルを作成しない
