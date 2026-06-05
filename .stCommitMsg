@@ -1,0 +1,19 @@
+# <type>(<scope>): <subject>
+#
+# Types:
+#   feat     新機能
+#   fix      バグ修正
+#   docs     ドキュメントのみの変更
+#   style    コードの意味に影響しない変更（空白、フォーマット等）
+#   refactor バグ修正でも機能追加でもないコード変更
+#   test     テストの追加・修正
+#   chore    ビルドプロセスや補助ツールの変更
+#   perf     パフォーマンス改善
+#   ci       CIの設定変更
+#   revert   コミットの取り消し
+#
+# Body（任意）: 変更の理由や背景を記述
+#
+# Footer（任意）:
+#   BREAKING CHANGE: <後方互換性を壊す変更の説明>
+#   Closes #<issue番号>
