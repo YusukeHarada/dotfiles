@@ -32,23 +32,52 @@ zstyle ':vcs_info:git:*' formats ' (%b)'
 setopt PROMPT_SUBST
 PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '
 
+# zsh plugins (Homebrew)
+[[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# fzf
+[[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] && \
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+[[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]] && \
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# zoxide (smart cd)
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
 # Aliases — filesystem
-alias ll='ls -laFG'
-alias la='ls -AG'
+alias ls='eza --icons'
+alias ll='eza -laF --icons --git'
+alias la='eza -aF --icons'
+alias lt='eza --tree --icons'
 alias ..='cd ..'
 alias ...='cd ../..'
+
+# Aliases — search & view
+alias cat='bat --paging=never'
+alias grep='rg --color=auto'
+alias find='fd'
 
 # Aliases — git
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
+alias gcm='git commit -m'
 alias gp='git push'
 alias gl='git pull'
 alias gd='git diff'
 alias gb='git branch'
 alias gco='git checkout'
 alias glog='git log --oneline --graph --decorate --all'
+alias gst='git stash'
+alias gstp='git stash pop'
 
 # Aliases — misc
-alias grep='grep --color=auto'
 alias reload='source ~/.zshrc'
+
+# zsh-syntax-highlighting (must be last)
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
