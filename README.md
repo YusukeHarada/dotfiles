@@ -8,10 +8,11 @@
 
 | ファイル | 用途 |
 |---|---|
-| `.zshrc` | zsh の設定（エイリアス、補完、プロンプトなど） |
+| `.zshrc` | zsh の設定（エイリアス、補完、プロンプト、プラグインなど） |
 | `.zprofile` | ログインシェル用の設定（Homebrew PATH など） |
 | `.gitconfig` | Git のユーザー情報・エイリアス設定 |
 | `.gitignore_global` | 全リポジトリ共通の Git 除外ルール |
+| `.stCommitMsg` | Git コミットテンプレート（Conventional Commits 形式） |
 | `.vimrc` | Vim の設定 |
 | `.config/gh/config.yml` | GitHub CLI の設定 |
 | `.config/karabiner/karabiner.json` | Karabiner-Elements のキーボード設定 |
@@ -26,7 +27,7 @@
 `~/dotfiles/` に実体ファイルを置き、ホームディレクトリからシンボリックリンクで参照します。
 
 ```
-~/.zshrc  →  ~/dotfiles/.zshrc（実体）
+~/.zshrc      →  ~/dotfiles/.zshrc（実体）
 ~/.gitconfig  →  ~/dotfiles/.gitconfig（実体）
 ...
 ```
@@ -44,14 +45,91 @@ git clone https://github.com/YusukeHarada/dotfiles ~/dotfiles
 # 2. シンボリックリンクを張る（既存ファイルは自動でバックアップされます）
 bash ~/dotfiles/install.sh
 
-# 3. 設定を即時反映
-source ~/.zshrc
-
-# 4. Homebrew パッケージを一括インストール
+# 3. Homebrew パッケージを一括インストール（ツール＋フォントも含む）
 brew bundle --file=~/dotfiles/Brewfile
+
+# 4. ターミナルのフォントを変更
+#    iTerm2:       Preferences → Profiles → Text → Font → "Hack Nerd Font"
+#    Terminal.app: 環境設定 → プロファイル → テキスト → フォントを変更
+
+# 5. 設定を即時反映（または新しいターミナルを開く）
+source ~/.zshrc
 ```
 
 > **注意:** `install.sh` は既存ファイルを上書きせず、`~/.dotfiles_backup/` に退避してからリンクを張ります。
+
+---
+
+## 主なシェル機能
+
+### キーボードショートカット
+
+| ショートカット | 動作 |
+|---|---|
+| `Ctrl+R` | コマンド履歴をインタラクティブに検索（fzf） |
+| `Ctrl+T` | カレントディレクトリ以下のファイルを検索（fzf） |
+| `Tab` | 補完候補をメニュー表示 |
+
+### エイリアス一覧
+
+**ファイル操作**
+
+| エイリアス | 展開 | 説明 |
+|---|---|---|
+| `ls` | `eza --icons` | アイコン付きファイル一覧 |
+| `ll` | `eza -laF --icons --git` | 詳細表示＋Git 差分ステータス |
+| `la` | `eza -aF --icons` | 隠しファイルも表示 |
+| `lt` | `eza --tree --icons` | ツリー表示 |
+| `cat` | `bat --paging=never` | シンタックスハイライト付き表示 |
+| `grep` | `rg --color=auto` | 高速 grep（ripgrep） |
+| `find` | `fd` | 使いやすい find 代替 |
+
+**ディレクトリ移動**
+
+| エイリアス | 説明 |
+|---|---|
+| `..` | 1階層上へ |
+| `...` | 2階層上へ |
+| `z <name>` | よく訪れるディレクトリへスマートジャンプ（zoxide） |
+
+**Git**
+
+| エイリアス | 展開 |
+|---|---|
+| `gs` | `git status` |
+| `ga` | `git add` |
+| `gc` | `git commit` |
+| `gcm` | `git commit -m` |
+| `gp` | `git push` |
+| `gl` | `git pull` |
+| `gd` | `git diff` |
+| `gb` | `git branch` |
+| `gco` | `git checkout` |
+| `glog` | `git log --oneline --graph --decorate --all` |
+| `gst` | `git stash` |
+| `gstp` | `git stash pop` |
+
+---
+
+## Conventional Commits テンプレート
+
+`git commit` を実行するとエディタに以下のテンプレートが表示されます。
+
+```
+# <type>(<scope>): <subject>
+```
+
+| type | 用途 |
+|---|---|
+| `feat` | 新機能 |
+| `fix` | バグ修正 |
+| `docs` | ドキュメントのみの変更 |
+| `style` | コードの意味に影響しない変更（空白・フォーマット等） |
+| `refactor` | バグ修正でも機能追加でもないコード変更 |
+| `test` | テストの追加・修正 |
+| `chore` | ビルドプロセスや補助ツールの変更 |
+| `perf` | パフォーマンス改善 |
+| `revert` | コミットの取り消し |
 
 ---
 
@@ -73,7 +151,7 @@ git commit -m "zshrc: ○○を追加"
 git push
 ```
 
-> `~/.zshrc` はシンボリックリンクなので、`~/.zshrc` を編集しても同じです。
+> `~/.zshrc` はシンボリックリンクなので、`~/.zshrc` を直接編集しても同じです。
 
 ---
 
@@ -86,7 +164,7 @@ brew bundle dump --file=~/dotfiles/Brewfile --force
 
 cd ~/dotfiles
 git add Brewfile
-git commit -m "Brewfile: ○○を追加"
+git commit -m "chore: ○○を追加"
 git push
 ```
 
@@ -108,7 +186,7 @@ vim ~/dotfiles/install.sh
 # 4. コミット
 cd ~/dotfiles
 git add .
-git commit -m "Add .newconfig"
+git commit -m "chore: .newconfig を管理対象に追加"
 git push
 ```
 
@@ -120,21 +198,21 @@ git push
 ~/dotfiles/
 ├── .config/
 │   ├── gh/
-│   │   └── config.yml       # GitHub CLI 設定
+│   │   └── config.yml           # GitHub CLI 設定
 │   └── karabiner/
-│       └── karabiner.json   # Karabiner 設定
+│       └── karabiner.json       # Karabiner 設定
 ├── .gitconfig
-├── .gitignore               # dotfiles リポジトリ自体の除外ルール
-├── .gitignore_global        # 全 Git リポジトリ共通の除外ルール
+├── .gitignore                   # dotfiles リポジトリ自体の除外ルール
+├── .gitignore_global            # 全 Git リポジトリ共通の除外ルール
 ├── .gitflow_export
 ├── .hgignore_global
-├── .stCommitMsg
+├── .stCommitMsg                 # コミットテンプレート（Conventional Commits）
 ├── .vimrc
 ├── .zprofile
 ├── .zshrc
 ├── vscode/
-│   └── settings.json        # VS Code ユーザー設定
-├── Brewfile                 # Homebrew パッケージ一覧
-├── install.sh               # セットアップスクリプト
-└── README.md                # このファイル
+│   └── settings.json            # VS Code ユーザー設定
+├── Brewfile                     # Homebrew パッケージ一覧
+├── install.sh                   # セットアップスクリプト
+└── README.md                    # このファイル
 ```
