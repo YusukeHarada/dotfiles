@@ -1,4 +1,4 @@
-name: Protect main from wsl2-ubuntu
+name: Protect main from OS-specific branches
 
 on:
   pull_request:
@@ -8,9 +8,12 @@ jobs:
   check-source-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Block merge from wsl2-ubuntu
+      - name: Block merge from OS-specific branches
         run: |
-          if [ "${{ github.head_ref }}" = "wsl2-ubuntu" ]; then
-            echo "::error::wsl2-ubuntu ブランチは main にマージできません。このブランチは WSL2/Ubuntu 専用の独立ブランチです。"
-            exit 1
-          fi
+          blocked="wsl2-ubuntu windows11"
+          for branch in $blocked; do
+            if [ "${{ github.head_ref }}" = "$branch" ]; then
+              echo "::error::${branch} ブランチは main にマージできません。このブランチは OS 専用の独立ブランチです。"
+              exit 1
+            fi
+          done
