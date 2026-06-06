@@ -1,0 +1,16 @@
+name: Protect main from wsl2-ubuntu
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block merge from wsl2-ubuntu
+        run: |
+          if [ "${{ github.head_ref }}" = "wsl2-ubuntu" ]; then
+            echo "::error::wsl2-ubuntu ブランチは main にマージできません。このブランチは WSL2/Ubuntu 専用の独立ブランチです。"
+            exit 1
+          fi
