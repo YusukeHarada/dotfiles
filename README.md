@@ -212,6 +212,8 @@ git push
 ├── .zshrc
 ├── vscode/
 │   └── settings.json            # VS Code ユーザー設定
+├── .claude/
+│   └── settings.json            # Claude Code の設定
 ├── Brewfile                     # Homebrew パッケージ一覧
 ├── install.sh                   # セットアップスクリプト
 └── README.md                    # このファイル

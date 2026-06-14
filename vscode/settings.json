@@ -11,5 +11,6 @@
     },
     "claudeCode.preferredLocation": "panel",
     "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "terminal.integrated.initialHint": false
 }
