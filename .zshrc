@@ -26,8 +26,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # Prompt (simple, no external deps)
-autoload -Uz vcs_info
-precmd() { vcs_info }
+autoload -Uz vcs_info add-zsh-hook
+add-zsh-hook precmd vcs_info
 zstyle ':vcs_info:git:*' formats ' (%b)'
 setopt PROMPT_SUBST
 PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '
