@@ -19,6 +19,7 @@
 | `Brewfile` | Homebrew でインストールするパッケージ一覧 |
 | `vscode/settings.json` | VS Code のユーザー設定 |
 | `.claude/settings.json` | Claude Code の設定（テーマなど） |
+| `.config/bat/config` | bat（cat 代替）のテーマ・表示設定 |
 
 ---
 
@@ -197,6 +198,8 @@ git push
 ```
 ~/dotfiles/
 ├── .config/
+│   ├── bat/
+│   │   └── config               # bat 設定
 │   ├── gh/
 │   │   └── config.yml           # GitHub CLI 設定
 │   └── karabiner/
