@@ -42,7 +42,7 @@ PROMPT='%F{cyan}%~%f%F{yellow}${vcs_info_msg_0_}%f %# '
 [[ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]] && \
   source /opt/homebrew/opt/fzf/shell/completion.zsh
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --preview "bat --color=always --style=numbers {}" --preview-window=right:50%:wrap'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # zoxide (smart cd)
