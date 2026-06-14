@@ -6,7 +6,7 @@ macOS 向け個人 dotfiles リポジトリ。`main` ブランチのみで管理
 
 ```
 dotfiles/
-├── .claude/settings.json          # Claude Code 設定（テーマなど）
+├── .claude/settings.json          # Claude Code 設定（テーマ・パーミッションなど）
 ├── .config/
 │   ├── gh/config.yml              # GitHub CLI 設定
 │   └── karabiner/karabiner.json   # Karabiner-Elements キーボード設定
