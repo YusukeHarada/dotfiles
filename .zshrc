@@ -48,6 +48,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # zoxide (smart cd)
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
+# gh completion
+command -v gh &>/dev/null && eval "$(gh completion -s zsh)"
+
 # Aliases — filesystem
 alias ls='eza --icons'
 alias ll='eza -laF --icons --git'
