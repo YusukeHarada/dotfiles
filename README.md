@@ -2,6 +2,9 @@
 
 個人の設定ファイル（dotfiles）を一元管理するリポジトリです。
 
+> **dotfiles とは？**
+> ターミナルや Git などの開発ツールの設定ファイルのことです。ファイル名が `.`（ドット）で始まることから「dotfiles」と呼ばれます。このリポジトリで一元管理することで、Mac を買い替えたときも同じ環境をすぐに再現できます。
+
 ---
 
 ## 管理しているファイル
@@ -33,14 +36,17 @@
 ...
 ```
 
-こうすることで、設定ファイルの変更を git で追跡・バックアップできます。
+> **シンボリックリンクとは？**
+> ファイルの「ショートカット」のようなものです。`~/.zshrc` を開いても `~/dotfiles/.zshrc` を開いても同じファイルを編集していることになります。dotfiles 側で編集すれば git で変更を追跡・バックアップできます。
 
 ---
 
 ## 新しい Mac にセットアップする手順
 
+> **前提条件:** Homebrew がインストール済みであること。未インストールの場合は [brew.sh](https://brew.sh) の手順に従ってインストールしてください。
+
 ```bash
-# 1. リポジトリをクローン
+# 1. リポジトリをクローン（dotfiles フォルダとしてダウンロード）
 git clone https://github.com/YusukeHarada/dotfiles ~/dotfiles
 
 # 2. シンボリックリンクを張る（既存ファイルは自動でバックアップされます）
@@ -49,7 +55,7 @@ bash ~/dotfiles/install.sh
 # 3. Homebrew パッケージを一括インストール（ツール＋フォントも含む）
 brew bundle --file=~/dotfiles/Brewfile
 
-# 4. ターミナルのフォントを変更
+# 4. ターミナルのフォントを変更（アイコンを正しく表示するために必要）
 #    iTerm2:       Preferences → Profiles → Text → Font → "Hack Nerd Font"
 #    Terminal.app: 環境設定 → プロファイル → テキスト → フォントを変更
 
@@ -57,15 +63,17 @@ brew bundle --file=~/dotfiles/Brewfile
 source ~/.zshrc
 ```
 
-> **注意:** `install.sh` は既存ファイルを上書きせず、`~/.dotfiles_backup/` に退避してからリンクを張ります。
+> **注意:** `install.sh` は既存ファイルを上書きせず、`~/.dotfiles_backup/` に退避してからリンクを張ります。万が一元に戻したい場合はそちらを参照してください。
 
 ---
 
 ## install.sh でできること
 
-`bash ~/dotfiles/install.sh` を実行すると、以下のシンボリックリンクが自動で作成されます。
+`bash ~/dotfiles/install.sh` を実行すると、以下のシンボリックリンクが自動で作成されます。コマンド1つで開発環境全体の設定が完了します。
 
 ### シェル設定
+
+ターミナル（zsh）の動作を設定します。
 
 | リンク先 | 実体 | 設定内容 |
 |---|---|---|
@@ -74,17 +82,21 @@ source ~/.zshrc
 
 ### Git 設定
 
+Git の動作・表示をカスタマイズします。
+
 | リンク先 | 実体 | 設定内容 |
 |---|---|---|
 | `~/.gitconfig` | `dotfiles/.gitconfig` | ユーザー情報・エイリアス・delta による diff 表示 |
-| `~/.gitignore_global` | `dotfiles/.gitignore_global` | 全リポジトリ共通の除外ルール |
+| `~/.gitignore_global` | `dotfiles/.gitignore_global` | 全リポジトリ共通の除外ルール（`.DS_Store` など） |
 | `~/.stCommitMsg` | `dotfiles/.stCommitMsg` | Conventional Commits 形式のコミットテンプレート |
 
 ### ツール設定
 
+各種 CLI ツールの設定をリンクします。
+
 | リンク先 | 実体 | 設定内容 |
 |---|---|---|
-| `~/.config/gh/` | `dotfiles/.config/gh/` | GitHub CLI の設定 |
+| `~/.config/gh/` | `dotfiles/.config/gh/` | GitHub CLI（`gh` コマンド）の設定 |
 | `~/.config/karabiner/` | `dotfiles/.config/karabiner/` | Karabiner-Elements のキーボード設定 |
 | `~/.config/bat/` | `dotfiles/.config/bat/` | bat のテーマ（GitHub）・行番号・変更行表示 |
 
@@ -115,7 +127,11 @@ source ~/.zshrc
 | `Ctrl+T` | カレントディレクトリ以下のファイルを検索（fzf）、bat でプレビュー表示 |
 | `Tab` | 補完候補をメニュー表示 |
 
+> **fzf とは？** ファジー検索ツールです。正確なファイル名やコマンドを覚えていなくても、一部を入力するだけで候補を絞り込んで選択できます。
+
 ### エイリアス一覧
+
+> **エイリアスとは？** よく使うコマンドに短い別名をつける機能です。たとえば `ls` と打つだけで、実際には `eza --icons` というコマンドが実行されます。
 
 **ファイル操作**
 
@@ -137,6 +153,8 @@ source ~/.zshrc
 | `...` | 2階層上へ |
 | `z <name>` | よく訪れるディレクトリへスマートジャンプ（zoxide） |
 
+> **zoxide とは？** `cd` の賢い代替ツールです。過去に訪れたことのあるディレクトリをディレクトリ名の一部だけで移動できます。例: `z dotfiles` で `~/dotfiles/` に移動。
+
 **Git**
 
 | エイリアス | 展開 | 説明 |
@@ -156,14 +174,18 @@ source ~/.zshrc
 
 ### Git エイリアス（.gitconfig）
 
+`git` コマンド自体にも短縮コマンドを設定しています。
+
 | エイリアス | 展開 | 説明 |
 |---|---|---|
 | `git recent` | `git log --oneline -10` | 直近10件のコミットを表示 |
-| `git staged` | `git diff --cached` | ステージ済みの差分を表示 |
+| `git staged` | `git diff --cached` | ステージ済みの差分を表示（コミット前の確認に便利） |
 | `git cleanup` | `git branch --merged \| grep -v main \| xargs git branch -d` | マージ済みブランチを一括削除 |
-| `git undo` | `git reset HEAD~1 --mixed` | 直前のコミットを取り消し（変更は保持） |
-| `git unstage` | `git reset HEAD --` | ステージを取り消し |
+| `git undo` | `git reset HEAD~1 --mixed` | 直前のコミットを取り消し（変更内容は保持） |
+| `git unstage` | `git reset HEAD --` | `git add` を取り消す |
 | `git lg` | `git log --oneline --graph --decorate --all` | グラフ付きログ |
+
+> **delta とは？** `git diff` の出力をシンタックスハイライト・行番号付きで見やすく表示するツールです。`.gitconfig` に設定済みのため、`git diff` や `git show` を実行するだけで自動的に使われます。
 
 ---
 
@@ -174,6 +196,8 @@ source ~/.zshrc
 ```
 # <type>(<scope>): <subject>
 ```
+
+> **Conventional Commits とは？** コミットメッセージの書き方を統一するルールです。`feat: ログイン機能を追加` のように「何の種類の変更か」を先頭に書くことで、履歴を見たときに変更内容が一目でわかります。
 
 | type | 用途 |
 |---|---|
@@ -224,6 +248,8 @@ git commit -m "chore: ○○を追加"
 git push
 ```
 
+> `brew bundle dump` を実行すると、現在インストール済みのパッケージを自動で Brewfile に書き出してくれます。手動で編集する必要はありません。
+
 ---
 
 ### 新しい設定ファイルを管理対象に追加したいとき
@@ -235,7 +261,7 @@ cp ~/.newconfig ~/dotfiles/.newconfig
 # 2. 元のファイルをシンボリックリンクに置き換え
 ln -sfn ~/dotfiles/.newconfig ~/.newconfig
 
-# 3. install.sh にも追記（次のセットアップのため）
+# 3. install.sh にも追記（次回セットアップ時に自動でリンクされるようにする）
 vim ~/dotfiles/install.sh
 # → link .newconfig  を追加
 
