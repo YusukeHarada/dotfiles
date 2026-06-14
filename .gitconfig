@@ -21,6 +21,9 @@
 	lg = log --oneline --graph --decorate --all
 	undo = reset HEAD~1 --mixed
 	unstage = reset HEAD --
+	recent = log --oneline -10
+	staged = diff --cached
+	cleanup = "!git branch --merged | grep -v main | xargs git branch -d"
 
 [commit]
 	template = ~/.stCommitMsg
