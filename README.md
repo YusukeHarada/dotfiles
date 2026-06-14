@@ -10,16 +10,16 @@
 |---|---|
 | `.zshrc` | zsh の設定（エイリアス、補完、プロンプト、プラグインなど） |
 | `.zprofile` | ログインシェル用の設定（Homebrew PATH など） |
-| `.gitconfig` | Git のユーザー情報・エイリアス設定 |
+| `.gitconfig` | Git のユーザー情報・エイリアス・delta 設定 |
 | `.gitignore_global` | 全リポジトリ共通の Git 除外ルール |
 | `.stCommitMsg` | Git コミットテンプレート（Conventional Commits 形式） |
 | `.vimrc` | Vim の設定 |
 | `.config/gh/config.yml` | GitHub CLI の設定 |
 | `.config/karabiner/karabiner.json` | Karabiner-Elements のキーボード設定 |
+| `.config/bat/config` | bat（cat 代替）のテーマ・表示設定 |
 | `Brewfile` | Homebrew でインストールするパッケージ一覧 |
 | `vscode/settings.json` | VS Code のユーザー設定 |
-| `.claude/settings.json` | Claude Code の設定（テーマなど） |
-| `.config/bat/config` | bat（cat 代替）のテーマ・表示設定 |
+| `.claude/settings.json` | Claude Code の設定（テーマ・パーミッションなど） |
 
 ---
 
@@ -61,6 +61,50 @@ source ~/.zshrc
 
 ---
 
+## install.sh でできること
+
+`bash ~/dotfiles/install.sh` を実行すると、以下のシンボリックリンクが自動で作成されます。
+
+### シェル設定
+
+| リンク先 | 実体 | 設定内容 |
+|---|---|---|
+| `~/.zshrc` | `dotfiles/.zshrc` | エイリアス・補完・プロンプト・プラグイン |
+| `~/.zprofile` | `dotfiles/.zprofile` | Homebrew の PATH 設定（ログインシェル） |
+
+### Git 設定
+
+| リンク先 | 実体 | 設定内容 |
+|---|---|---|
+| `~/.gitconfig` | `dotfiles/.gitconfig` | ユーザー情報・エイリアス・delta による diff 表示 |
+| `~/.gitignore_global` | `dotfiles/.gitignore_global` | 全リポジトリ共通の除外ルール |
+| `~/.stCommitMsg` | `dotfiles/.stCommitMsg` | Conventional Commits 形式のコミットテンプレート |
+
+### ツール設定
+
+| リンク先 | 実体 | 設定内容 |
+|---|---|---|
+| `~/.config/gh/` | `dotfiles/.config/gh/` | GitHub CLI の設定 |
+| `~/.config/karabiner/` | `dotfiles/.config/karabiner/` | Karabiner-Elements のキーボード設定 |
+| `~/.config/bat/` | `dotfiles/.config/bat/` | bat のテーマ（GitHub）・行番号・変更行表示 |
+
+### エディタ設定
+
+| リンク先 | 実体 | 設定内容 |
+|---|---|---|
+| `~/.vimrc` | `dotfiles/.vimrc` | Vim の設定 |
+| `~/Library/Application Support/Code/User/settings.json` | `dotfiles/vscode/settings.json` | VS Code のユーザー設定 |
+
+### Claude Code 設定
+
+| リンク先 | 実体 | 設定内容 |
+|---|---|---|
+| `~/.claude/settings.json` | `dotfiles/.claude/settings.json` | テーマ・パーミッションなど |
+
+> 既存ファイルがある場合は `~/.dotfiles_backup/<timestamp>/` に自動でバックアップされます。
+
+---
+
 ## 主なシェル機能
 
 ### キーボードショートカット
@@ -68,7 +112,7 @@ source ~/.zshrc
 | ショートカット | 動作 |
 |---|---|
 | `Ctrl+R` | コマンド履歴をインタラクティブに検索（fzf） |
-| `Ctrl+T` | カレントディレクトリ以下のファイルを検索（fzf） |
+| `Ctrl+T` | カレントディレクトリ以下のファイルを検索（fzf）、bat でプレビュー表示 |
 | `Tab` | 補完候補をメニュー表示 |
 
 ### エイリアス一覧
@@ -95,20 +139,31 @@ source ~/.zshrc
 
 **Git**
 
-| エイリアス | 展開 |
-|---|---|
-| `gs` | `git status` |
-| `ga` | `git add` |
-| `gc` | `git commit` |
-| `gcm` | `git commit -m` |
-| `gp` | `git push` |
-| `gl` | `git pull` |
-| `gd` | `git diff` |
-| `gb` | `git branch` |
-| `gco` | `git checkout` |
-| `glog` | `git log --oneline --graph --decorate --all` |
-| `gst` | `git stash` |
-| `gstp` | `git stash pop` |
+| エイリアス | 展開 | 説明 |
+|---|---|---|
+| `gs` | `git status` | |
+| `ga` | `git add` | |
+| `gc` | `git commit` | |
+| `gcm` | `git commit -m` | |
+| `gp` | `git push` | |
+| `gl` | `git pull` | |
+| `gd` | `git diff` | delta によるシンタックスハイライト表示 |
+| `gb` | `git branch` | |
+| `gco` | `git checkout` | |
+| `glog` | `git log --oneline --graph --decorate --all` | |
+| `gst` | `git stash` | |
+| `gstp` | `git stash pop` | |
+
+### Git エイリアス（.gitconfig）
+
+| エイリアス | 展開 | 説明 |
+|---|---|---|
+| `git recent` | `git log --oneline -10` | 直近10件のコミットを表示 |
+| `git staged` | `git diff --cached` | ステージ済みの差分を表示 |
+| `git cleanup` | `git branch --merged \| grep -v main \| xargs git branch -d` | マージ済みブランチを一括削除 |
+| `git undo` | `git reset HEAD~1 --mixed` | 直前のコミットを取り消し（変更は保持） |
+| `git unstage` | `git reset HEAD --` | ステージを取り消し |
+| `git lg` | `git log --oneline --graph --decorate --all` | グラフ付きログ |
 
 ---
 
@@ -197,9 +252,11 @@ git push
 
 ```
 ~/dotfiles/
+├── .claude/
+│   └── settings.json            # Claude Code の設定
 ├── .config/
 │   ├── bat/
-│   │   └── config               # bat 設定
+│   │   └── config               # bat 設定（テーマ・表示スタイル）
 │   ├── gh/
 │   │   └── config.yml           # GitHub CLI 設定
 │   └── karabiner/
@@ -215,8 +272,6 @@ git push
 ├── .zshrc
 ├── vscode/
 │   └── settings.json            # VS Code ユーザー設定
-├── .claude/
-│   └── settings.json            # Claude Code の設定
 ├── Brewfile                     # Homebrew パッケージ一覧
 ├── install.sh                   # セットアップスクリプト
 └── README.md                    # このファイル
