@@ -1,6 +1,7 @@
 brew "autoconf"
 brew "automake"
 brew "bat"
+brew "git-delta"
 brew "cmake"
 brew "cppcheck"
 brew "eza"
