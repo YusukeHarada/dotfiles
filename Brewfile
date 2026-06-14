@@ -1,4 +1,5 @@
 brew "autoconf"
+brew "mas"
 brew "automake"
 brew "bat"
 brew "git-delta"
