@@ -3,8 +3,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# ARM GCC toolchain
-export PATH="/Applications/ArmGNUToolchain/13.3.rel1/arm-none-eabi/bin:$PATH"
+# ARM GCC toolchain (auto-detects latest installed version)
+_arm_gcc=(/Applications/ArmGNUToolchain/*/arm-none-eabi/bin(N[-1]))
+[[ -n "$_arm_gcc" ]] && export PATH="$_arm_gcc:$PATH"
+unset _arm_gcc
 
 # History
 HISTSIZE=50000

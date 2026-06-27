@@ -3,8 +3,6 @@
     "workbench.iconTheme": "file-icons",
     "workbench.colorTheme": "GitHub Dark",
     "explorer.confirmDelete": false,
-    "gitlens.ai.model": "vscode",
-    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "explorer.confirmDragAndDrop": false,
     "evenBetterToml.schema.associations": {
         "config\\.toml$": "https://schemastore.org"
