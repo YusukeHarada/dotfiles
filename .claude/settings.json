@@ -2,13 +2,19 @@
   "permissions": {
     "allow": [
       "Bash(git add *)",
-      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(git pull *)",
       "Bash(git checkout *)",
       "Bash(git stash *)",
+      "Bash(git ls-tree *)",
+      "Bash(gh run *)",
+      "Bash(gh pr *)",
       "Bash(npm test *)",
-      "Bash(gh run *)"
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Read(//Users/yharada/develop/claude-settings/**)"
     ]
   },
   "effortLevel": "low",

@@ -84,3 +84,4 @@ alias reload='source ~/.zshrc'
 # zsh-syntax-highlighting (must be last)
 [[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
   source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+eval "$(rbenv init - zsh)"

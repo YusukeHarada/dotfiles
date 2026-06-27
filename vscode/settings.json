@@ -12,5 +12,7 @@
     "claudeCode.preferredLocation": "panel",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
-    "terminal.integrated.initialHint": false
+    "terminal.integrated.initialHint": false,
+    "aws.cloudformation.telemetry.enabled": true,
+    "makefile.configureOnOpen": true
 }
