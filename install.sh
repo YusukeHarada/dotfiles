@@ -32,7 +32,6 @@ link .vimrc
 echo "==> Linking .config entries"
 mkdir -p "$HOME/.config"
 link .config/gh
-link .config/karabiner
 link .config/bat
 
 echo "==> Linking VS Code settings"

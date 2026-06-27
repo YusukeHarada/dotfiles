@@ -18,7 +18,6 @@
 | `.stCommitMsg` | Git コミットテンプレート（Conventional Commits 形式） |
 | `.vimrc` | Vim の設定 |
 | `.config/gh/config.yml` | GitHub CLI の設定 |
-| `.config/karabiner/karabiner.json` | Karabiner-Elements のキーボード設定 |
 | `.config/bat/config` | bat（cat 代替）のテーマ・表示設定 |
 | `Brewfile` | Homebrew でインストールするパッケージ一覧 |
 | `vscode/settings.json` | VS Code のユーザー設定 |
@@ -97,7 +96,6 @@ Git の動作・表示をカスタマイズします。
 | リンク先 | 実体 | 設定内容 |
 |---|---|---|
 | `~/.config/gh/` | `dotfiles/.config/gh/` | GitHub CLI（`gh` コマンド）の設定 |
-| `~/.config/karabiner/` | `dotfiles/.config/karabiner/` | Karabiner-Elements のキーボード設定 |
 | `~/.config/bat/` | `dotfiles/.config/bat/` | bat のテーマ（GitHub）・行番号・変更行表示 |
 
 ### エディタ設定
@@ -285,8 +283,6 @@ git push
 │   │   └── config               # bat 設定（テーマ・表示スタイル）
 │   ├── gh/
 │   │   └── config.yml           # GitHub CLI 設定
-│   └── karabiner/
-│       └── karabiner.json       # Karabiner 設定
 ├── .gitconfig
 ├── .gitignore                   # dotfiles リポジトリ自体の除外ルール
 ├── .gitignore_global            # 全 Git リポジトリ共通の除外ルール
