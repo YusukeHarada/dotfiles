@@ -71,7 +71,6 @@ mas "Save to Notion", id: 6478488868
 mas "Weather Typing", id: 1402920465
 mas "Xcode", id: 497799835
 mas "Xmind", id: 1327661892
-vscode "amazonwebservices.aws-toolkit-vscode"
 vscode "anthropic.claude-code"
 vscode "donjayamanne.githistory"
 vscode "file-icons.file-icons"
